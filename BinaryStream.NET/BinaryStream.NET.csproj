@@ -12,6 +12,7 @@
     <RepositoryType>git</RepositoryType>
     <Description>Pure .NET library with static extensions to read and write native datatypes in any type of streams (System.IO.Stream).</Description>
     <PackageTags>binary, stream, binarystream, binarystream.net, extensions, library</PackageTags>
+    <PackageProjectUrl>https://github.com/BerkanYildiz/BinaryStream.NET</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,10 +20,12 @@
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
     <OutputPath>Builds/Release/</OutputPath>
+    <DocumentationFile>Builds/Release/BinaryStream.NET.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>Builds/Debug/</OutputPath>
+    <DocumentationFile>Builds/Debug/BinaryStream.NET.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
