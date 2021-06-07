@@ -7,9 +7,7 @@ Pure .NET library with static extensions to read and write native datatypes in a
 
 ## Example
 
-```csharp
-// TODO
-```
+![image](https://user-images.githubusercontent.com/15068742/121069864-492fec80-c7ce-11eb-844e-1f662362a75c.png)
 
 # Licence
 This work is licensed under the MIT License.
