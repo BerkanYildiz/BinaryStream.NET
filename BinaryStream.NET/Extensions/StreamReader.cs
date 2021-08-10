@@ -15,7 +15,7 @@
         public static byte ReadByte(this Stream Stream)
         {
             var Buffer = new byte[sizeof(byte)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
             return Buffer[0];
         }
 
@@ -26,7 +26,7 @@
         public static sbyte ReadSignedByte(this Stream Stream)
         {
             var Buffer = new byte[sizeof(sbyte)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
             return (sbyte) Buffer[0];
         }
 
@@ -37,12 +37,12 @@
         public static bool ReadBool(this Stream Stream)
         {
             var Buffer = new byte[sizeof(bool)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToBoolean(Buffer, 0);
+            return BitConverter.ToBoolean(Buffer);
         }
 
         /// <summary>
@@ -52,12 +52,12 @@
         public static char ReadChar(this Stream Stream)
         {
             var Buffer = new byte[sizeof(char)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToChar(Buffer, 0);
+            return BitConverter.ToChar(Buffer);
         }
 
         /// <summary>
@@ -67,12 +67,12 @@
         public static short ReadShort(this Stream Stream)
         {
             var Buffer = new byte[sizeof(short)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt16(Buffer, 0);
+            return BitConverter.ToInt16(Buffer);
         }
 
         /// <summary>
@@ -82,12 +82,12 @@
         public static ushort ReadUnsignedShort(this Stream Stream)
         {
             var Buffer = new byte[sizeof(ushort)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt16(Buffer, 0);
+            return BitConverter.ToUInt16(Buffer);
         }
 
         /// <summary>
@@ -97,12 +97,12 @@
         public static int ReadInteger(this Stream Stream)
         {
             var Buffer = new byte[sizeof(int)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt32(Buffer, 0);
+            return BitConverter.ToInt32(Buffer);
         }
 
         /// <summary>
@@ -112,12 +112,12 @@
         public static uint ReadUnsignedInteger(this Stream Stream)
         {
             var Buffer = new byte[sizeof(uint)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt32(Buffer, 0);
+            return BitConverter.ToUInt32(Buffer);
         }
 
         /// <summary>
@@ -127,12 +127,12 @@
         public static long ReadLong(this Stream Stream)
         {
             var Buffer = new byte[sizeof(long)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt64(Buffer, 0);
+            return BitConverter.ToInt64(Buffer);
         }
 
         /// <summary>
@@ -142,12 +142,12 @@
         public static ulong ReadUnsignedLong(this Stream Stream)
         {
             var Buffer = new byte[sizeof(ulong)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt64(Buffer, 0);
+            return BitConverter.ToUInt64(Buffer);
         }
 
         /// <summary>
@@ -157,12 +157,12 @@
         public static double ReadDouble(this Stream Stream)
         {
             var Buffer = new byte[sizeof(double)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToDouble(Buffer, 0);
+            return BitConverter.ToDouble(Buffer);
         }
 
         /// <summary>
@@ -172,12 +172,12 @@
         public static float ReadSingle(this Stream Stream)
         {
             var Buffer = new byte[sizeof(float)];
-            Stream.Read(Buffer, 0, Buffer.Length);
+            Stream.Read(Buffer);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToSingle(Buffer, 0);
+            return BitConverter.ToSingle(Buffer);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@
             var Buffer = new byte[NumberOfBytes];
 
             if (NumberOfBytes != 0)
-                Stream.Read(Buffer, 0, Buffer.Length);
+                Stream.Read(Buffer);
 
             return Buffer;
         }

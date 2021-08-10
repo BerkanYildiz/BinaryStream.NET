@@ -368,6 +368,47 @@
         }
 
         /// <summary>
+        /// Reads the bytes from the current stream and writes them to another stream, using a specified buffer size.
+        /// </summary>
+        /// <param name="Destination">The stream to which the contents of the current stream will be copied.</param>
+        /// <param name="BufferSize">The size of the buffer. This value must be greater than zero. The default size is 81920.</param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="Destination" /> is <see langword="null" />.</exception>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="BufferSize" /> is negative or zero.</exception>
+        /// <exception cref="T:System.NotSupportedException">The current stream does not support reading.
+        /// -or-
+        /// <paramref name="Destination" /> does not support writing.</exception>
+        /// <exception cref="T:System.ObjectDisposedException">Either the current stream or <paramref name="Destination" /> were closed before the <see cref="M:System.IO.Stream.CopyTo(System.IO.Stream)" /> method was called.</exception>
+        /// <exception cref="T:System.IO.IOException">An I/O error occurred.</exception>
+        public override void CopyTo(Stream Destination, int BufferSize)
+        {
+            // 
+            // Check if we have permission to read from this stream.
+            // 
+
+            if (this.CanRead == false)
+            {
+                throw new NotSupportedException("The stream cannot be copied because it does not have read permission.");
+            }
+
+            // 
+            // Check if we have enough bytes in this stream to copy to the buffer.
+            // 
+
+            if (BufferSize > this.Length)
+            {
+                throw new InvalidOperationException("The stream does not have enough bytes to copy to the given buffer.");
+            }
+
+            // 
+            // Copy this stream's data to the other stream.
+            // 
+
+            Destination.Write(this.Buffer, 0, BufferSize);
+        }
+
+        /// <summary>
         /// Asynchronously reads the bytes from the current stream and writes them to another stream, using a specified buffer size and cancellation token.
         /// </summary>
         /// <param name="Destination">The stream to which the contents of the current stream will be copied.</param>
