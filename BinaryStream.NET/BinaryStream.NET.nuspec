@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0.0</version>
-    <title>HardwareIds.NET</title>
+    <version>1.0.1.0</version>
+    <title>BinaryStream.NET</title>
     <authors>Berkan YILDIZ</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/BerkanYildiz/HardwareIds.NET</projectUrl>
-    <description>Simple .NET library capable of tracking users across re-installs and hardware components swapping, and even entirely new computer using the neighborhood's network endpoints.</description>
+    <projectUrl>https://github.com/BerkanYildiz/BinaryStream.NET</projectUrl>
+    <description>Pure .NET library with static extensions to read and write native datatypes in any type of streams (System.IO.Stream).</description>
     <releaseNotes>Downgrade from .NET 5.0 to .NET Framework 4.8</releaseNotes>
     <copyright>$copyright$</copyright>
-    <tags>hwid, tracker, track, tracking, hardware, id, hardwareid, hardwareids, hwids, hardwares, identifier, identifiers, scan, network, query, serial, number, serialnumber</tags>
+    <tags>binary, stream, binarystream, binarystream.net, extensions, library</tags>
   </metadata>
 </package>

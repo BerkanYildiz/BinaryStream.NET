@@ -13,10 +13,10 @@
         /// Reads a byte value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<byte> ReadByteAsync(this Stream Stream)
+        public static async ValueTask<byte> ReadByteAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(byte)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
             return Buffer[0];
         }
 
@@ -24,10 +24,10 @@
         /// Reads a signed byte value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<sbyte> ReadSignedByteAsync(this Stream Stream)
+        public static async ValueTask<sbyte> ReadSignedByteAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(sbyte)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
             return (sbyte) Buffer[0];
         }
 
@@ -35,157 +35,157 @@
         /// Reads a boolean value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<bool> ReadBoolAsync(this Stream Stream)
+        public static async ValueTask<bool> ReadBoolAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(bool)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToBoolean(Buffer);
+            return BitConverter.ToBoolean(Buffer, 0);
         }
 
         /// <summary>
         /// Reads a char value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<char> ReadCharAsync(this Stream Stream)
+        public static async ValueTask<char> ReadCharAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(char)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToChar(Buffer);
+            return BitConverter.ToChar(Buffer, 0);
         }
 
         /// <summary>
         /// Reads a short value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<short> ReadShortAsync(this Stream Stream)
+        public static async ValueTask<short> ReadShortAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(short)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt16(Buffer);
+            return BitConverter.ToInt16(Buffer, 0);
         }
 
         /// <summary>
         /// Reads an unsigned short value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<ushort> ReadUnsignedShortAsync(this Stream Stream)
+        public static async ValueTask<ushort> ReadUnsignedShortAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(ushort)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt16(Buffer);
+            return BitConverter.ToUInt16(Buffer, 0);
         }
 
         /// <summary>
         /// Reads an integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<int> ReadIntegerAsync(this Stream Stream)
+        public static async ValueTask<int> ReadIntegerAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(int)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt32(Buffer);
+            return BitConverter.ToInt32(Buffer, 0);
         }
 
         /// <summary>
         /// Reads an unsigned integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<uint> ReadUnsignedIntegerAsync(this Stream Stream)
+        public static async ValueTask<uint> ReadUnsignedIntegerAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(uint)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt32(Buffer);
+            return BitConverter.ToUInt32(Buffer, 0);
         }
 
         /// <summary>
         /// Reads a long value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<long> ReadLongAsync(this Stream Stream)
+        public static async ValueTask<long> ReadLongAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(long)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt64(Buffer);
+            return BitConverter.ToInt64(Buffer, 0);
         }
 
         /// <summary>
         /// Reads an unsigned long value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<ulong> ReadUnsignedLongAsync(this Stream Stream)
+        public static async ValueTask<ulong> ReadUnsignedLongAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(ulong)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt64(Buffer);
+            return BitConverter.ToUInt64(Buffer, 0);
         }
 
         /// <summary>
         /// Reads a double value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<double> ReadDoubleAsync(this Stream Stream)
+        public static async ValueTask<double> ReadDoubleAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(double)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToDouble(Buffer);
+            return BitConverter.ToDouble(Buffer, 0);
         }
 
         /// <summary>
         /// Reads a single value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<float> ReadSingleAsync(this Stream Stream)
+        public static async ValueTask<float> ReadSingleAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(float)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToSingle(Buffer);
+            return BitConverter.ToSingle(Buffer, 0);
         }
         
         /// <summary>
         /// Reads an enum value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<T> ReadEnumAsync<T>(this Stream Stream) where T : Enum
+        public static async ValueTask<T> ReadEnumAsync<T>(this Stream Stream) where T : Enum
         {
             switch (Type.GetTypeCode(typeof(T)))
             {
@@ -223,7 +223,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        public static async Task<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        public static async ValueTask<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
         {
             var NumberOfEntries = await Stream.ReadIntegerAsync();
 
@@ -251,7 +251,7 @@
         /// Reads an array from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<byte[]> ReadBufferAsync(this Stream Stream)
+        public static async ValueTask<byte[]> ReadBufferAsync(this Stream Stream)
         {
             var NumberOfBytes = await Stream.ReadIntegerAsync();
 
@@ -263,7 +263,7 @@
             var Buffer = new byte[NumberOfBytes];
 
             if (NumberOfBytes != 0)
-                await Stream.ReadAsync(Buffer);
+                await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             return Buffer;
         }
@@ -272,7 +272,7 @@
         /// Writes a compressed array to the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<byte[]> ReadCompressedBufferAsync(this Stream Stream)
+        public static async ValueTask<byte[]> ReadCompressedBufferAsync(this Stream Stream)
         {
             var CompressedBuffer = await Stream.ReadBufferAsync();
 
@@ -294,7 +294,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Encoding">The string encoding.</param>
-        public static async Task<string> ReadStringAsync(this Stream Stream, Encoding Encoding = null)
+        public static async ValueTask<string> ReadStringAsync(this Stream Stream, Encoding Encoding = null)
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
             {
@@ -321,7 +321,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Encoding">The string encoding.</param>
-        public static async Task<string> ReadCompressedStringAsync(this Stream Stream, Encoding Encoding = null)
+        public static async ValueTask<string> ReadCompressedStringAsync(this Stream Stream, Encoding Encoding = null)
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
             {
@@ -348,7 +348,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <returns>A datetime that is expected to be UTC.</returns>
-        public static async Task<DateTime> ReadDateTimeAsync(this Stream Stream)
+        public static async ValueTask<DateTime> ReadDateTimeAsync(this Stream Stream)
         {
             var Ticks = await Stream.ReadLongAsync();
             var Value = new DateTime(Ticks, DateTimeKind.Utc);
@@ -360,7 +360,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <returns>A datetime that is expected to be UTC.</returns>
-        public static async Task<DateTimeOffset> ReadDateTimeOffsetAsync(this Stream Stream)
+        public static async ValueTask<DateTimeOffset> ReadDateTimeOffsetAsync(this Stream Stream)
         {
             var Ticks = await Stream.ReadLongAsync();
             var Offset = await Stream.ReadTimeSpanAsync();
@@ -372,7 +372,7 @@
         /// Reads a <see cref="TimeSpan"/> value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<TimeSpan> ReadTimeSpanAsync(this Stream Stream)
+        public static async ValueTask<TimeSpan> ReadTimeSpanAsync(this Stream Stream)
         {
             var Ticks = await Stream.ReadLongAsync();
             return new TimeSpan(Ticks);
@@ -382,7 +382,7 @@
         /// Reads a <see cref="Guid"/> value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<Guid> ReadGuidAsync(this Stream Stream)
+        public static async ValueTask<Guid> ReadGuidAsync(this Stream Stream)
         {
             return new Guid(await Stream.ReadBufferAsync());
         }
@@ -391,7 +391,7 @@
         /// Reads a compressed integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<int> ReadCompressedIntegerAsync(this Stream Stream)
+        public static async ValueTask<int> ReadCompressedIntegerAsync(this Stream Stream)
         {
             var Byte = await Stream.ReadByteAsync();
             int Result;
@@ -461,7 +461,7 @@
         /// Reads a compressed unsigned integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        public static async Task<uint> ReadCompressedUnsignedIntegerAsync(this Stream Stream)
+        public static async ValueTask<uint> ReadCompressedUnsignedIntegerAsync(this Stream Stream)
         {
             var Byte = await Stream.ReadByteAsync();
             int Result;

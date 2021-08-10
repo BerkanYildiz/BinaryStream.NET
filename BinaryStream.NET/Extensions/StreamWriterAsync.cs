@@ -14,18 +14,18 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteByteAsync(this Stream Stream, byte Value)
+        public static async ValueTask WriteByteAsync(this Stream Stream, byte Value)
         {
-            await Stream.WriteAsync(new byte[1] { Value });
+            await Stream.WriteAsync(new byte[sizeof(byte)] { Value }, 0, sizeof(byte));
         }
         /// <summary>
         /// Writes a signed byte value to the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteSignedByteAsync(this Stream Stream, sbyte Value)
+        public static async ValueTask WriteSignedByteAsync(this Stream Stream, sbyte Value)
         {
-            await Stream.WriteAsync(new byte[1] { (byte) Value });
+            await Stream.WriteAsync(new byte[sizeof(sbyte)] { (byte) Value }, 0, sizeof(sbyte));
         }
 
         /// <summary>
@@ -33,14 +33,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteBoolAsync(this Stream Stream, bool Value)
+        public static async ValueTask WriteBoolAsync(this Stream Stream, bool Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -48,14 +48,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteCharAsync(this Stream Stream, char Value)
+        public static async ValueTask WriteCharAsync(this Stream Stream, char Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -63,14 +63,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteShortAsync(this Stream Stream, short Value)
+        public static async ValueTask WriteShortAsync(this Stream Stream, short Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -78,14 +78,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteUnsignedShortAsync(this Stream Stream, ushort Value)
+        public static async ValueTask WriteUnsignedShortAsync(this Stream Stream, ushort Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -93,14 +93,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteIntegerAsync(this Stream Stream, int Value)
+        public static async ValueTask WriteIntegerAsync(this Stream Stream, int Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -108,14 +108,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteUnsignedIntegerAsync(this Stream Stream, uint Value)
+        public static async ValueTask WriteUnsignedIntegerAsync(this Stream Stream, uint Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -123,14 +123,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteLongAsync(this Stream Stream, long Value)
+        public static async ValueTask WriteLongAsync(this Stream Stream, long Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -138,14 +138,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteUnsignedLongAsync(this Stream Stream, ulong Value)
+        public static async ValueTask WriteUnsignedLongAsync(this Stream Stream, ulong Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -153,14 +153,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteDoubleAsync(this Stream Stream, double Value)
+        public static async ValueTask WriteDoubleAsync(this Stream Stream, double Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -168,14 +168,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteSingleAsync(this Stream Stream, float Value)
+        public static async ValueTask WriteSingleAsync(this Stream Stream, float Value)
         {
             var Buffer = BitConverter.GetBytes(Value);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -183,7 +183,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteEnumAsync<T>(this Stream Stream, T Value) where T : Enum
+        public static async ValueTask WriteEnumAsync<T>(this Stream Stream, T Value) where T : Enum
         {
             switch (Type.GetTypeCode(typeof(T)))
             {
@@ -230,7 +230,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        public static async Task WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
+        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
         {
             if (Value == null)
             {
@@ -251,7 +251,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteBufferAsync(this Stream Stream, byte[] Value)
+        public static async ValueTask WriteBufferAsync(this Stream Stream, byte[] Value)
         {
             if (Value == null)
             {
@@ -262,7 +262,7 @@
             await Stream.WriteIntegerAsync(Value.Length);
 
             if (Value.Length != 0)
-                await Stream.WriteAsync(Value);
+                await Stream.WriteAsync(Value, 0, Value.Length);
         }
 
         /// <summary>
@@ -270,7 +270,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteCompressedBufferAsync(this Stream Stream, byte[] Value)
+        public static async ValueTask WriteCompressedBufferAsync(this Stream Stream, byte[] Value)
         {
             await Stream.WriteBufferAsync(Value == null ? null : ZlibStream.CompressBuffer(Value));
         }
@@ -281,7 +281,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="Encoding">The string encoding.</param>
-        public static async Task WriteStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
+        public static async ValueTask WriteStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
             {
@@ -297,7 +297,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="Encoding">The string encoding.</param>
-        public static async Task WriteCompressedStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
+        public static async ValueTask WriteCompressedStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
             {
@@ -312,7 +312,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteDateTimeAsync(this Stream Stream, DateTime Value)
+        public static async ValueTask WriteDateTimeAsync(this Stream Stream, DateTime Value)
         {
             if (Value.Kind != DateTimeKind.Utc)
             {
@@ -327,7 +327,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteDateTimeOffsetAsync(this Stream Stream, DateTimeOffset Value)
+        public static async ValueTask WriteDateTimeOffsetAsync(this Stream Stream, DateTimeOffset Value)
         {
             await Stream.WriteLongAsync(Value.Ticks);
             await Stream.WriteTimeSpanAsync(Value.Offset);
@@ -338,7 +338,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteTimeSpanAsync(this Stream Stream, TimeSpan Value)
+        public static async ValueTask WriteTimeSpanAsync(this Stream Stream, TimeSpan Value)
         {
             await Stream.WriteLongAsync(Value.Ticks);
         }
@@ -348,7 +348,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteGuidAsync(this Stream Stream, Guid Value)
+        public static async ValueTask WriteGuidAsync(this Stream Stream, Guid Value)
         {
             await Stream.WriteBufferAsync(Value.ToByteArray());
         }
@@ -358,7 +358,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteCompressedIntegerAsync(this Stream Stream, int Value)
+        public static async ValueTask WriteCompressedIntegerAsync(this Stream Stream, int Value)
         {
             if (Value >= 0)
             {
@@ -377,7 +377,7 @@
                                     (byte) ((Value >> 13) & 0x7F | 0x80),
                                     (byte) ((Value >> 20) & 0x7F | 0x80),
                                     (byte) ((Value >> 27) & 0xF)
-                                });
+                                }, 0, 5);
 
                                 return;
                             }
@@ -388,7 +388,7 @@
                                 (byte) ((Value >> 6) & 0x7F | 0x80),
                                 (byte) ((Value >> 13) & 0x7F | 0x80),
                                 (byte) ((Value >> 20) & 0x7F)
-                            });
+                            }, 0, 4);
 
                             return;
                         }
@@ -398,7 +398,7 @@
                             (byte) (Value & 0x3F | 0x80),
                             (byte) ((Value >> 6) & 0x7F | 0x80),
                             (byte) ((Value >> 13) & 0x7F)
-                        });
+                        }, 0, 3);
 
                         return;
                     }
@@ -407,7 +407,7 @@
                     {
                         (byte) (Value & 0x3F | 0x80),
                         (byte) ((Value >> 6) & 0x7F)
-                    });
+                    }, 0, 2);
 
                     return;
                 }
@@ -415,7 +415,7 @@
                 await Stream.WriteAsync(new byte[]
                 {
                     (byte) (Value & 0x3F),
-                });
+                }, 0, 1);
             }
             else
             {
@@ -434,7 +434,7 @@
                                     (byte) ((Value >> 13) & 0x7F | 0x80),
                                     (byte) ((Value >> 20) & 0x7F | 0x80),
                                     (byte) ((Value >> 27) & 0xF)
-                                });
+                                }, 0, 5);
 
                                 return;
                             }
@@ -445,7 +445,7 @@
                                 (byte) ((Value >> 6) & 0x7F | 0x80),
                                 (byte) ((Value >> 13) & 0x7F | 0x80),
                                 (byte) ((Value >> 20) & 0x7F)
-                            });
+                            }, 0, 4);
 
                             return;
                         }
@@ -455,7 +455,7 @@
                             (byte) (Value & 0x3F | 0xC0),
                             (byte) ((Value >> 6) & 0x7F | 0x80),
                             (byte) ((Value >> 13) & 0x7F),
-                        });
+                        }, 0, 3);
 
                         return;
                     }
@@ -464,7 +464,7 @@
                     {
                         (byte) (Value & 0x3F | 0xC0),
                         (byte) ((Value >> 6) & 0x7F),
-                    });
+                    }, 0, 2);
 
                     return;
                 }
@@ -472,7 +472,7 @@
                 await Stream.WriteAsync(new byte[]
                 {
                     (byte) (Value & 0x3F | 0x40),
-                });
+                }, 0, 1);
             }
         }
 
@@ -481,7 +481,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        public static async Task WriteCompressedUnsignedIntegerAsync(this Stream Stream, uint Value)
+        public static async ValueTask WriteCompressedUnsignedIntegerAsync(this Stream Stream, uint Value)
         {
             if (Value >= 0x40)
             {
@@ -498,7 +498,7 @@
                                 (byte) ((Value >> 13) & 0x7F | 0x80),
                                 (byte) ((Value >> 20) & 0x7F | 0x80),
                                 (byte) ((Value >> 27) & 0xF)
-                            });
+                            }, 0, 5);
 
                             return;
                         }
@@ -509,7 +509,7 @@
                             (byte) ((Value >> 6) & 0x7F | 0x80),
                             (byte) ((Value >> 13) & 0x7F | 0x80),
                             (byte) ((Value >> 20) & 0x7F)
-                        });
+                        }, 0, 4);
 
                         return;
                     }
@@ -519,7 +519,7 @@
                         (byte) (Value & 0x3F | 0x80),
                         (byte) ((Value >> 6) & 0x7F | 0x80),
                         (byte) ((Value >> 13) & 0x7F)
-                    });
+                    }, 0, 3);
 
                     return;
                 }
@@ -528,7 +528,7 @@
                 {
                     (byte) (Value & 0x3F | 0x80),
                     (byte) ((Value >> 6) & 0x7F)
-                });
+                }, 0, 2);
 
                 return;
             }
@@ -536,7 +536,7 @@
             await Stream.WriteAsync(new byte[]
             {
                 (byte) (Value & 0x3F),
-            });
+            }, 0, 1);
         }
     }
 }
