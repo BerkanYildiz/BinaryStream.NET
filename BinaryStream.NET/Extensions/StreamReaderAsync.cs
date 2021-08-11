@@ -16,7 +16,7 @@
         public static async ValueTask<byte> ReadByteAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(byte)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
             return Buffer[0];
         }
 
@@ -27,7 +27,7 @@
         public static async ValueTask<sbyte> ReadSignedByteAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(sbyte)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
             return (sbyte) Buffer[0];
         }
 
@@ -38,12 +38,12 @@
         public static async ValueTask<bool> ReadBoolAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(bool)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToBoolean(Buffer);
+            return BitConverter.ToBoolean(Buffer, 0);
         }
 
         /// <summary>
@@ -53,12 +53,12 @@
         public static async ValueTask<char> ReadCharAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(char)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToChar(Buffer);
+            return BitConverter.ToChar(Buffer, 0);
         }
 
         /// <summary>
@@ -68,12 +68,12 @@
         public static async ValueTask<short> ReadShortAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(short)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt16(Buffer);
+            return BitConverter.ToInt16(Buffer, 0);
         }
 
         /// <summary>
@@ -83,12 +83,12 @@
         public static async ValueTask<ushort> ReadUnsignedShortAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(ushort)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt16(Buffer);
+            return BitConverter.ToUInt16(Buffer, 0);
         }
 
         /// <summary>
@@ -98,12 +98,12 @@
         public static async ValueTask<int> ReadIntegerAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(int)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt32(Buffer);
+            return BitConverter.ToInt32(Buffer, 0);
         }
 
         /// <summary>
@@ -113,12 +113,12 @@
         public static async ValueTask<uint> ReadUnsignedIntegerAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(uint)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt32(Buffer);
+            return BitConverter.ToUInt32(Buffer, 0);
         }
 
         /// <summary>
@@ -128,12 +128,12 @@
         public static async ValueTask<long> ReadLongAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(long)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToInt64(Buffer);
+            return BitConverter.ToInt64(Buffer, 0);
         }
 
         /// <summary>
@@ -143,12 +143,12 @@
         public static async ValueTask<ulong> ReadUnsignedLongAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(ulong)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToUInt64(Buffer);
+            return BitConverter.ToUInt64(Buffer, 0);
         }
 
         /// <summary>
@@ -158,12 +158,12 @@
         public static async ValueTask<double> ReadDoubleAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(double)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToDouble(Buffer);
+            return BitConverter.ToDouble(Buffer, 0);
         }
 
         /// <summary>
@@ -173,12 +173,12 @@
         public static async ValueTask<float> ReadSingleAsync(this Stream Stream)
         {
             var Buffer = new byte[sizeof(float)];
-            await Stream.ReadAsync(Buffer);
+            await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            return BitConverter.ToSingle(Buffer);
+            return BitConverter.ToSingle(Buffer, 0);
         }
         
         /// <summary>
@@ -263,7 +263,7 @@
             var Buffer = new byte[NumberOfBytes];
 
             if (NumberOfBytes != 0)
-                await Stream.ReadAsync(Buffer);
+                await Stream.ReadAsync(Buffer, 0, Buffer.Length);
 
             return Buffer;
         }

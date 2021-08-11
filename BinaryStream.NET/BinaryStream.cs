@@ -367,6 +367,7 @@
             System.Buffer.BlockCopy(this.Buffer, 0, InBuffer, InOffset, InLength);
         }
 
+        #if NET5_0
         /// <summary>
         /// Reads the bytes from the current stream and writes them to another stream, using a specified buffer size.
         /// </summary>
@@ -407,6 +408,7 @@
 
             Destination.Write(this.Buffer, 0, BufferSize);
         }
+        #endif
 
         /// <summary>
         /// Asynchronously reads the bytes from the current stream and writes them to another stream, using a specified buffer size and cancellation token.

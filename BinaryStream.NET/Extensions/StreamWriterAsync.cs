@@ -16,7 +16,7 @@
         /// <param name="Value">The value to write.</param>
         public static async ValueTask WriteByteAsync(this Stream Stream, byte Value)
         {
-            await Stream.WriteAsync(new byte[1] { Value });
+            await Stream.WriteAsync(new byte[sizeof(byte)] { Value }, 0, sizeof(byte));
         }
         /// <summary>
         /// Writes a signed byte value to the stream.
@@ -25,7 +25,7 @@
         /// <param name="Value">The value to write.</param>
         public static async ValueTask WriteSignedByteAsync(this Stream Stream, sbyte Value)
         {
-            await Stream.WriteAsync(new byte[1] { (byte) Value });
+            await Stream.WriteAsync(new byte[sizeof(sbyte)] { (byte) Value }, 0, sizeof(sbyte));
         }
 
         /// <summary>
@@ -40,7 +40,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -175,7 +175,7 @@
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(Buffer);
 
-            await Stream.WriteAsync(Buffer);
+            await Stream.WriteAsync(Buffer, 0, Buffer.Length);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, ValueTask> EntryEncoder)
+        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
         {
             if (Value == null)
             {
@@ -262,7 +262,7 @@
             await Stream.WriteIntegerAsync(Value.Length);
 
             if (Value.Length != 0)
-                await Stream.WriteAsync(Value);
+                await Stream.WriteAsync(Value, 0, Value.Length);
         }
 
         /// <summary>
@@ -377,7 +377,7 @@
                                     (byte) ((Value >> 13) & 0x7F | 0x80),
                                     (byte) ((Value >> 20) & 0x7F | 0x80),
                                     (byte) ((Value >> 27) & 0xF)
-                                });
+                                }, 0, 5);
 
                                 return;
                             }
@@ -388,7 +388,7 @@
                                 (byte) ((Value >> 6) & 0x7F | 0x80),
                                 (byte) ((Value >> 13) & 0x7F | 0x80),
                                 (byte) ((Value >> 20) & 0x7F)
-                            });
+                            }, 0, 4);
 
                             return;
                         }
@@ -398,7 +398,7 @@
                             (byte) (Value & 0x3F | 0x80),
                             (byte) ((Value >> 6) & 0x7F | 0x80),
                             (byte) ((Value >> 13) & 0x7F)
-                        });
+                        }, 0, 3);
 
                         return;
                     }
@@ -407,7 +407,7 @@
                     {
                         (byte) (Value & 0x3F | 0x80),
                         (byte) ((Value >> 6) & 0x7F)
-                    });
+                    }, 0, 2);
 
                     return;
                 }
@@ -415,7 +415,7 @@
                 await Stream.WriteAsync(new byte[]
                 {
                     (byte) (Value & 0x3F),
-                });
+                }, 0, 1);
             }
             else
             {
@@ -434,7 +434,7 @@
                                     (byte) ((Value >> 13) & 0x7F | 0x80),
                                     (byte) ((Value >> 20) & 0x7F | 0x80),
                                     (byte) ((Value >> 27) & 0xF)
-                                });
+                                }, 0, 5);
 
                                 return;
                             }
@@ -445,7 +445,7 @@
                                 (byte) ((Value >> 6) & 0x7F | 0x80),
                                 (byte) ((Value >> 13) & 0x7F | 0x80),
                                 (byte) ((Value >> 20) & 0x7F)
-                            });
+                            }, 0, 4);
 
                             return;
                         }
@@ -455,7 +455,7 @@
                             (byte) (Value & 0x3F | 0xC0),
                             (byte) ((Value >> 6) & 0x7F | 0x80),
                             (byte) ((Value >> 13) & 0x7F),
-                        });
+                        }, 0, 3);
 
                         return;
                     }
@@ -464,7 +464,7 @@
                     {
                         (byte) (Value & 0x3F | 0xC0),
                         (byte) ((Value >> 6) & 0x7F),
-                    });
+                    }, 0, 2);
 
                     return;
                 }
@@ -472,7 +472,7 @@
                 await Stream.WriteAsync(new byte[]
                 {
                     (byte) (Value & 0x3F | 0x40),
-                });
+                }, 0, 1);
             }
         }
 
@@ -498,7 +498,7 @@
                                 (byte) ((Value >> 13) & 0x7F | 0x80),
                                 (byte) ((Value >> 20) & 0x7F | 0x80),
                                 (byte) ((Value >> 27) & 0xF)
-                            });
+                            }, 0, 5);
 
                             return;
                         }
@@ -509,7 +509,7 @@
                             (byte) ((Value >> 6) & 0x7F | 0x80),
                             (byte) ((Value >> 13) & 0x7F | 0x80),
                             (byte) ((Value >> 20) & 0x7F)
-                        });
+                        }, 0, 4);
 
                         return;
                     }
@@ -519,7 +519,7 @@
                         (byte) (Value & 0x3F | 0x80),
                         (byte) ((Value >> 6) & 0x7F | 0x80),
                         (byte) ((Value >> 13) & 0x7F)
-                    });
+                    }, 0, 3);
 
                     return;
                 }
@@ -528,7 +528,7 @@
                 {
                     (byte) (Value & 0x3F | 0x80),
                     (byte) ((Value >> 6) & 0x7F)
-                });
+                }, 0, 2);
 
                 return;
             }
@@ -536,7 +536,7 @@
             await Stream.WriteAsync(new byte[]
             {
                 (byte) (Value & 0x3F),
-            });
+            }, 0, 1);
         }
     }
 }
