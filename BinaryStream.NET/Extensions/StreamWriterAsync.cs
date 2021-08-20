@@ -14,7 +14,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteByteAsync(this Stream Stream, byte Value)
+        #else
         public static async Task WriteByteAsync(this Stream Stream, byte Value)
+        #endif
         {
             await Stream.WriteAsync(new byte[sizeof(byte)] { Value }, 0, sizeof(byte));
         }
@@ -23,7 +27,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteSignedByteAsync(this Stream Stream, sbyte Value)
+        #else
         public static async Task WriteSignedByteAsync(this Stream Stream, sbyte Value)
+        #endif
         {
             await Stream.WriteAsync(new byte[sizeof(sbyte)] { (byte) Value }, 0, sizeof(sbyte));
         }
@@ -33,7 +41,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteBoolAsync(this Stream Stream, bool Value)
+        #else
         public static async Task WriteBoolAsync(this Stream Stream, bool Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -48,7 +60,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteCharAsync(this Stream Stream, char Value)
+        #else
         public static async Task WriteCharAsync(this Stream Stream, char Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -63,7 +79,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteShortAsync(this Stream Stream, short Value)
+        #else
         public static async Task WriteShortAsync(this Stream Stream, short Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -78,7 +98,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteUnsignedShortAsync(this Stream Stream, ushort Value)
+        #else
         public static async Task WriteUnsignedShortAsync(this Stream Stream, ushort Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -93,7 +117,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteIntegerAsync(this Stream Stream, int Value)
+        #else
         public static async Task WriteIntegerAsync(this Stream Stream, int Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -108,7 +136,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteUnsignedIntegerAsync(this Stream Stream, uint Value)
+        #else
         public static async Task WriteUnsignedIntegerAsync(this Stream Stream, uint Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -123,7 +155,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteLongAsync(this Stream Stream, long Value)
+        #else
         public static async Task WriteLongAsync(this Stream Stream, long Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -138,7 +174,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteUnsignedLongAsync(this Stream Stream, ulong Value)
+        #else
         public static async Task WriteUnsignedLongAsync(this Stream Stream, ulong Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -153,7 +193,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteDoubleAsync(this Stream Stream, double Value)
+        #else
         public static async Task WriteDoubleAsync(this Stream Stream, double Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -168,7 +212,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteSingleAsync(this Stream Stream, float Value)
+        #else
         public static async Task WriteSingleAsync(this Stream Stream, float Value)
+        #endif
         {
             var Buffer = BitConverter.GetBytes(Value);
 
@@ -183,7 +231,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteEnumAsync<T>(this Stream Stream, T Value) where T : Enum
+        #else
         public static async Task WriteEnumAsync<T>(this Stream Stream, T Value) where T : Enum
+        #endif
         {
             switch (Type.GetTypeCode(typeof(T)))
             {
@@ -230,7 +282,11 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
+        #if NET5_0
+        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
+        #else
         public static async Task WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
+        #endif
         {
             if (Value == null)
             {
@@ -241,9 +297,7 @@
             await Stream.WriteIntegerAsync(Value.Length);
 
             for (var EntryId = 0; EntryId < Value.Length; EntryId++)
-            {
                 await EntryEncoder(Stream, Value[EntryId]);
-            }
         }
 
         /// <summary>
@@ -251,7 +305,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteBufferAsync(this Stream Stream, byte[] Value)
+        #else
         public static async Task WriteBufferAsync(this Stream Stream, byte[] Value)
+        #endif
         {
             if (Value == null)
             {
@@ -270,7 +328,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteCompressedBufferAsync(this Stream Stream, byte[] Value)
+        #else
         public static async Task WriteCompressedBufferAsync(this Stream Stream, byte[] Value)
+        #endif
         {
             await Stream.WriteBufferAsync(Value == null ? null : ZlibStream.CompressBuffer(Value));
         }
@@ -281,12 +343,14 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="Encoding">The string encoding.</param>
+        #if NET5_0
+        public static async ValueTask WriteStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
+        #else
         public static async Task WriteStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
+        #endif
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
-            {
                 Encoding = Encoding.BigEndianUnicode;
-            }
 
             await Stream.WriteBufferAsync(Value == null ? null : Encoding.GetBytes(Value));
         }
@@ -297,12 +361,14 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="Encoding">The string encoding.</param>
+        #if NET5_0
+        public static async ValueTask WriteCompressedStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
+        #else
         public static async Task WriteCompressedStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
+        #endif
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
-            {
                 Encoding = Encoding.BigEndianUnicode;
-            }
 
             await Stream.WriteCompressedBufferAsync(Value == null ? null : Encoding.GetBytes(Value));
         }
@@ -312,12 +378,14 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteDateTimeAsync(this Stream Stream, DateTime Value)
+        #else
         public static async Task WriteDateTimeAsync(this Stream Stream, DateTime Value)
+        #endif
         {
             if (Value.Kind != DateTimeKind.Utc)
-            {
                 Value = Value.ToUniversalTime();
-            }
 
             await Stream.WriteLongAsync(Value.Ticks);
         }
@@ -327,7 +395,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteDateTimeOffsetAsync(this Stream Stream, DateTimeOffset Value)
+        #else
         public static async Task WriteDateTimeOffsetAsync(this Stream Stream, DateTimeOffset Value)
+        #endif
         {
             await Stream.WriteLongAsync(Value.Ticks);
             await Stream.WriteTimeSpanAsync(Value.Offset);
@@ -338,7 +410,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteTimeSpanAsync(this Stream Stream, TimeSpan Value)
+        #else
         public static async Task WriteTimeSpanAsync(this Stream Stream, TimeSpan Value)
+        #endif
         {
             await Stream.WriteLongAsync(Value.Ticks);
         }
@@ -348,7 +424,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteGuidAsync(this Stream Stream, Guid Value)
+        #else
         public static async Task WriteGuidAsync(this Stream Stream, Guid Value)
+        #endif
         {
             await Stream.WriteBufferAsync(Value.ToByteArray());
         }
@@ -358,7 +438,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteCompressedIntegerAsync(this Stream Stream, int Value)
+        #else
         public static async Task WriteCompressedIntegerAsync(this Stream Stream, int Value)
+        #endif
         {
             if (Value >= 0)
             {
@@ -481,7 +565,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
+        #if NET5_0
+        public static async ValueTask WriteCompressedUnsignedIntegerAsync(this Stream Stream, uint Value)
+        #else
         public static async Task WriteCompressedUnsignedIntegerAsync(this Stream Stream, uint Value)
+        #endif
         {
             if (Value >= 0x40)
             {

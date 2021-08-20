@@ -13,7 +13,11 @@
         /// Reads a byte value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<byte> ReadByteAsync(this Stream Stream)
+        #else
         public static async Task<byte> ReadByteAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(byte)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -24,7 +28,11 @@
         /// Reads a signed byte value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<sbyte> ReadSignedByteAsync(this Stream Stream)
+        #else
         public static async Task<sbyte> ReadSignedByteAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(sbyte)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -35,7 +43,11 @@
         /// Reads a boolean value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<bool> ReadBoolAsync(this Stream Stream)
+        #else
         public static async Task<bool> ReadBoolAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(bool)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -50,7 +62,11 @@
         /// Reads a char value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<char> ReadCharAsync(this Stream Stream)
+        #else
         public static async Task<char> ReadCharAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(char)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -65,7 +81,11 @@
         /// Reads a short value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<short> ReadShortAsync(this Stream Stream)
+        #else
         public static async Task<short> ReadShortAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(short)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -80,7 +100,11 @@
         /// Reads an unsigned short value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<ushort> ReadUnsignedShortAsync(this Stream Stream)
+        #else
         public static async Task<ushort> ReadUnsignedShortAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(ushort)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -95,7 +119,11 @@
         /// Reads an integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<int> ReadIntegerAsync(this Stream Stream)
+        #else
         public static async Task<int> ReadIntegerAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(int)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -110,7 +138,11 @@
         /// Reads an unsigned integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<uint> ReadUnsignedIntegerAsync(this Stream Stream)
+        #else
         public static async Task<uint> ReadUnsignedIntegerAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(uint)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -125,7 +157,11 @@
         /// Reads a long value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<long> ReadLongAsync(this Stream Stream)
+        #else
         public static async Task<long> ReadLongAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(long)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -140,7 +176,11 @@
         /// Reads an unsigned long value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<ulong> ReadUnsignedLongAsync(this Stream Stream)
+        #else
         public static async Task<ulong> ReadUnsignedLongAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(ulong)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -155,7 +195,11 @@
         /// Reads a double value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<double> ReadDoubleAsync(this Stream Stream)
+        #else
         public static async Task<double> ReadDoubleAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(double)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -170,7 +214,11 @@
         /// Reads a single value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<float> ReadSingleAsync(this Stream Stream)
+        #else
         public static async Task<float> ReadSingleAsync(this Stream Stream)
+        #endif
         {
             var Buffer = new byte[sizeof(float)];
             await Stream.ReadAsync(Buffer, 0, Buffer.Length);
@@ -185,7 +233,11 @@
         /// Reads an enum value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<T> ReadEnumAsync<T>(this Stream Stream) where T : Enum
+        #else
         public static async Task<T> ReadEnumAsync<T>(this Stream Stream) where T : Enum
+        #endif
         {
             switch (Type.GetTypeCode(typeof(T)))
             {
@@ -223,26 +275,24 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
+        #if NET5_0
+        public static async ValueTask<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        #else
         public static async Task<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        #endif
         {
             var NumberOfEntries = await Stream.ReadIntegerAsync();
 
             if (NumberOfEntries == -1)
-            {
                 return null;
-            }
 
             if (NumberOfEntries == 0)
-            {
                 return new T[0];
-            }
 
             var Entries = new T[NumberOfEntries];
 
             for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
-            {
                 Entries[EntryId] = await EntryDecoder(Stream);
-            }
 
             return Entries;
         }
@@ -251,14 +301,16 @@
         /// Reads an array from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<byte[]> ReadBufferAsync(this Stream Stream)
+        #else
         public static async Task<byte[]> ReadBufferAsync(this Stream Stream)
+        #endif
         {
             var NumberOfBytes = await Stream.ReadIntegerAsync();
 
             if (NumberOfBytes == -1)
-            {
                 return null;
-            }
 
             var Buffer = new byte[NumberOfBytes];
 
@@ -272,19 +324,19 @@
         /// Writes a compressed array to the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<byte[]> ReadCompressedBufferAsync(this Stream Stream)
+        #else
         public static async Task<byte[]> ReadCompressedBufferAsync(this Stream Stream)
+        #endif
         {
             var CompressedBuffer = await Stream.ReadBufferAsync();
 
             if (CompressedBuffer == null)
-            {
                 return null;
-            }
 
             if (CompressedBuffer.Length == 0)
-            {
                 return new byte[0];
-            }
 
             return ZlibStream.UncompressBuffer(CompressedBuffer);
         }
@@ -294,24 +346,22 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Encoding">The string encoding.</param>
+        #if NET5_0
+        public static async ValueTask<string> ReadStringAsync(this Stream Stream, Encoding Encoding = null)
+        #else
         public static async Task<string> ReadStringAsync(this Stream Stream, Encoding Encoding = null)
+        #endif
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
-            {
                 Encoding = Encoding.BigEndianUnicode;
-            }
 
             var Buffer = await Stream.ReadBufferAsync();
 
             if (Buffer == null)
-            {
                 return null;
-            }
 
             if (Buffer.Length == 0)
-            {
                 return string.Empty;
-            }
 
             return Encoding.GetString(Buffer);
         }
@@ -321,24 +371,22 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Encoding">The string encoding.</param>
+        #if NET5_0
+        public static async ValueTask<string> ReadCompressedStringAsync(this Stream Stream, Encoding Encoding = null)
+        #else
         public static async Task<string> ReadCompressedStringAsync(this Stream Stream, Encoding Encoding = null)
+        #endif
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
-            {
                 Encoding = Encoding.BigEndianUnicode;
-            }
 
             var Buffer = await Stream.ReadCompressedBufferAsync();
 
             if (Buffer == null)
-            {
                 return null;
-            }
 
             if (Buffer.Length == 0)
-            {
                 return string.Empty;
-            }
 
             return Encoding.GetString(Buffer);
         }
@@ -348,7 +396,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <returns>A datetime that is expected to be UTC.</returns>
+        #if NET5_0
+        public static async ValueTask<DateTime> ReadDateTimeAsync(this Stream Stream)
+        #else
         public static async Task<DateTime> ReadDateTimeAsync(this Stream Stream)
+        #endif
         {
             var Ticks = await Stream.ReadLongAsync();
             var Value = new DateTime(Ticks, DateTimeKind.Utc);
@@ -360,7 +412,11 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <returns>A datetime that is expected to be UTC.</returns>
+        #if NET5_0
+        public static async ValueTask<DateTimeOffset> ReadDateTimeOffsetAsync(this Stream Stream)
+        #else
         public static async Task<DateTimeOffset> ReadDateTimeOffsetAsync(this Stream Stream)
+        #endif
         {
             var Ticks = await Stream.ReadLongAsync();
             var Offset = await Stream.ReadTimeSpanAsync();
@@ -372,7 +428,11 @@
         /// Reads a <see cref="TimeSpan"/> value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<TimeSpan> ReadTimeSpanAsync(this Stream Stream)
+        #else
         public static async Task<TimeSpan> ReadTimeSpanAsync(this Stream Stream)
+        #endif
         {
             var Ticks = await Stream.ReadLongAsync();
             return new TimeSpan(Ticks);
@@ -382,7 +442,11 @@
         /// Reads a <see cref="Guid"/> value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<Guid> ReadGuidAsync(this Stream Stream)
+        #else
         public static async Task<Guid> ReadGuidAsync(this Stream Stream)
+        #endif
         {
             return new Guid(await Stream.ReadBufferAsync());
         }
@@ -391,7 +455,11 @@
         /// Reads a compressed integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<int> ReadCompressedIntegerAsync(this Stream Stream)
+        #else
         public static async Task<int> ReadCompressedIntegerAsync(this Stream Stream)
+        #endif
         {
             var Byte = await Stream.ReadByteAsync();
             int Result;
@@ -461,7 +529,11 @@
         /// Reads a compressed unsigned integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
+        #if NET5_0
+        public static async ValueTask<uint> ReadCompressedUnsignedIntegerAsync(this Stream Stream)
+        #else
         public static async Task<uint> ReadCompressedUnsignedIntegerAsync(this Stream Stream)
+        #endif
         {
             var Byte = await Stream.ReadByteAsync();
             int Result;
