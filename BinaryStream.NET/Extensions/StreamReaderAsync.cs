@@ -1,6 +1,8 @@
 ﻿namespace BinaryStream.NET.Extensions
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
@@ -276,9 +278,9 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
         #if NET5_0
-        public static async ValueTask<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        public static async ValueTask<IEnumerable<T>> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
         #else
-        public static async Task<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        public static async Task<IEnumerable<T>> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
         #endif
         {
             var NumberOfEntries = await Stream.ReadIntegerAsync();

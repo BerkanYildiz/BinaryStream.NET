@@ -1,7 +1,11 @@
 ﻿namespace BinaryStream.NET.Extensions
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
+    using System.Net.Mail;
     using System.Text;
 
     using Ionic.Zlib;
@@ -230,7 +234,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        public static void WriteArray<T>(this Stream Stream, T[] Value, Action<Stream, T> EntryEncoder)
+        public static void WriteArray<T>(this Stream Stream, IEnumerable<T> Value, Action<Stream, T> EntryEncoder)
         {
             if (Value == null)
             {
@@ -238,12 +242,10 @@
                 return;
             }
 
-            Stream.WriteInteger(Value.Length);
+            Stream.WriteInteger(Value.Count());
 
-            for (var EntryId = 0; EntryId < Value.Length; EntryId++)
-            {
-                EntryEncoder(Stream, Value[EntryId]);
-            }
+            foreach (var Entry in Value)
+                EntryEncoder(Stream, Entry);
         }
 
         /// <summary>
@@ -300,9 +302,7 @@
         public static void WriteCompressedString(this Stream Stream, string Value, Encoding Encoding = null)
         {
             if (Encoding == null || Encoding.Equals(Encoding.Unicode))
-            {
                 Encoding = Encoding.BigEndianUnicode;
-            }
 
             Stream.WriteCompressedBuffer(Value == null ? null : Encoding.GetBytes(Value));
         }
@@ -315,9 +315,7 @@
         public static void WriteDateTime(this Stream Stream, DateTime Value)
         {
             if (Value.Kind != DateTimeKind.Utc)
-            {
                 Value = Value.ToUniversalTime();
-            }
 
             Stream.WriteLong(Value.Ticks);
         }

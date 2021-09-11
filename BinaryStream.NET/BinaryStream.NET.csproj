@@ -13,7 +13,8 @@
     <Description>Pure .NET library with static extensions to read and write native datatypes in any type of streams (System.IO.Stream).</Description>
     <PackageTags>binary, stream, binarystream, binarystream.net, extensions, library</PackageTags>
     <PackageProjectUrl>https://github.com/BerkanYildiz/BinaryStream.NET</PackageProjectUrl>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
+    <PackageReleaseNotes>WriteArray and ReadArray are now using IEnumerable&lt;T&gt; instead of an array.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

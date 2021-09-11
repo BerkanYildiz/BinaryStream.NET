@@ -1,7 +1,10 @@
 ﻿namespace BinaryStream.NET.Extensions
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -283,9 +286,9 @@
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
         #if NET5_0
-        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
+        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, Task> EntryEncoder)
         #else
-        public static async Task WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
+        public static async Task WriteArrayAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, Task> EntryEncoder)
         #endif
         {
             if (Value == null)
@@ -294,10 +297,10 @@
                 return;
             }
 
-            await Stream.WriteIntegerAsync(Value.Length);
+            await Stream.WriteIntegerAsync(Value.Count());
 
-            for (var EntryId = 0; EntryId < Value.Length; EntryId++)
-                await EntryEncoder(Stream, Value[EntryId]);
+            foreach (var Entry in Value)
+                await EntryEncoder(Stream, Entry);
         }
 
         /// <summary>

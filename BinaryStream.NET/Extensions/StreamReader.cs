@@ -1,7 +1,9 @@
 ﻿namespace BinaryStream.NET.Extensions
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Text;
 
     using Ionic.Zlib;
@@ -222,26 +224,20 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        public static T[] ReadArray<T>(this Stream Stream, Func<Stream, T> EntryDecoder)
+        public static IEnumerable<T> ReadArray<T>(this Stream Stream, Func<Stream, T> EntryDecoder)
         {
             var NumberOfEntries = Stream.ReadInteger();
 
             if (NumberOfEntries == -1)
-            {
                 return null;
-            }
 
             if (NumberOfEntries == 0)
-            {
                 return new T[0];
-            }
 
             var Entries = new T[NumberOfEntries];
 
             for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
-            {
                 Entries[EntryId] = EntryDecoder(Stream);
-            }
 
             return Entries;
         }
