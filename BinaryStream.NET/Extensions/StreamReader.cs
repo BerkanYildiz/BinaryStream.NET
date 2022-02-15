@@ -232,7 +232,7 @@
                 return null;
 
             if (NumberOfEntries == 0)
-                return new T[0];
+                return Array.Empty<T>();
 
             var Entries = new T[NumberOfEntries];
 
@@ -278,7 +278,7 @@
 
             if (CompressedBuffer.Length == 0)
             {
-                return new byte[0];
+                return Array.Empty<byte>();
             }
 
             return ZlibStream.UncompressBuffer(CompressedBuffer);

@@ -113,7 +113,7 @@
             // Setup the buffer.
             // 
 
-            this.Buffer = new byte[0];
+            this.Buffer = Array.Empty<byte>();
 
             // 
             // Setup the permissions.
