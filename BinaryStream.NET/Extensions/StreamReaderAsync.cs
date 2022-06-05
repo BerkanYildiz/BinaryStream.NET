@@ -278,9 +278,33 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
         #if NET5_0
-        public static async ValueTask<IEnumerable<T>> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        public static async ValueTask<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
         #else
-        public static async Task<IEnumerable<T>> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        public static async Task<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        #endif
+        {
+            var NumberOfEntries = await Stream.ReadLongAsync();
+
+            if (NumberOfEntries == -1)
+                return null;
+
+            var Entries = new T[NumberOfEntries];
+
+            for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
+                Entries[EntryId] = await EntryDecoder(Stream);
+
+            return Entries;
+        }
+
+        /// <summary>
+        /// Reads an enumerable from the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="EntryDecoder">The entry decoder.</param>
+        #if NET5_0
+        public static async ValueTask<IEnumerable<T>> ReadEnumerableAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
+        #else
+        public static async Task<IEnumerable<T>> ReadEnumerableAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
         #endif
         {
             var NumberOfEntries = await Stream.ReadIntegerAsync();
@@ -288,13 +312,58 @@
             if (NumberOfEntries == -1)
                 return null;
 
-            if (NumberOfEntries == 0)
-                return Array.Empty<T>();
-
             var Entries = new T[NumberOfEntries];
 
             for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
                 Entries[EntryId] = await EntryDecoder(Stream);
+
+            return Entries;
+        }
+
+        /// <summary>
+        /// Reads a collection from the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="EntryDecoder">The entry decoder.</param>
+        #if NET5_0
+        public static async ValueTask<ICollection<T>> ReadCollectionAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
+        #else
+        public static async Task<ICollection<T>> ReadCollectionAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
+        #endif
+        {
+            var NumberOfEntries = await Stream.ReadIntegerAsync();
+
+            if (NumberOfEntries == -1)
+                return null;
+
+            var Entries = new List<T>(NumberOfEntries);
+
+            for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
+                Entries.Add(await EntryDecoder(Stream));
+
+            return Entries;
+        }
+
+        /// <summary>
+        /// Reads a collection from the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="EntryDecoder">The entry decoder.</param>
+        #if NET5_0
+        public static async ValueTask<TCollection> ReadCollectionAsync<TCollection, TEntry>(this Stream Stream, Func<Stream, ValueTask<TEntry>> EntryDecoder) where TCollection : ICollection<TEntry>, new()
+        #else
+        public static async Task<TCollection> ReadCollectionAsync<TCollection, TEntry>(this Stream Stream, Func<Stream, Task<TEntry>> EntryDecoder) where TCollection : ICollection<TEntry>, new()
+        #endif
+        {
+            var NumberOfEntries = await Stream.ReadIntegerAsync();
+
+            if (NumberOfEntries == -1)
+                return default(TCollection);
+
+            var Entries = new TCollection();
+
+            for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
+                Entries.Add(await EntryDecoder(Stream));
 
             return Entries;
         }

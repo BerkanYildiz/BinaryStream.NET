@@ -234,7 +234,27 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        public static void WriteArray<T>(this Stream Stream, IEnumerable<T> Value, Action<Stream, T> EntryEncoder)
+        public static void WriteArray<T>(this Stream Stream, T[] Value, Action<Stream, T> EntryEncoder)
+        {
+            if (Value == null)
+            {
+                Stream.WriteLong(-1);
+                return;
+            }
+
+            Stream.WriteLong(Value.LongLength);
+
+            foreach (var Entry in Value)
+                EntryEncoder(Stream, Entry);
+        }
+
+        /// <summary>
+        /// Writes an enumerable to the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="Value">The value to write.</param>
+        /// <param name="EntryEncoder">The entry encoder.</param>
+        public static void WriteEnumerable<T>(this Stream Stream, IEnumerable<T> Value, Action<Stream, T> EntryEncoder)
         {
             if (Value == null)
             {
@@ -243,6 +263,26 @@
             }
 
             Stream.WriteInteger(Value.Count());
+
+            foreach (var Entry in Value)
+                EntryEncoder(Stream, Entry);
+        }
+
+        /// <summary>
+        /// Writes a collection to the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="Value">The value to write.</param>
+        /// <param name="EntryEncoder">The entry encoder.</param>
+        public static void WriteCollection<T>(this Stream Stream, ICollection<T> Value, Action<Stream, T> EntryEncoder)
+        {
+            if (Value == null)
+            {
+                Stream.WriteInteger(-1);
+                return;
+            }
+            
+            Stream.WriteInteger(Value.Count);
 
             foreach (var Entry in Value)
                 EntryEncoder(Stream, Entry);

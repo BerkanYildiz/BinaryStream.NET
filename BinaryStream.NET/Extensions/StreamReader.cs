@@ -224,22 +224,79 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        public static IEnumerable<T> ReadArray<T>(this Stream Stream, Func<Stream, T> EntryDecoder)
+        public static T[] ReadArray<T>(this Stream Stream, Func<Stream, T> EntryDecoder)
         {
-            var NumberOfEntries = Stream.ReadInteger();
+            var NumberOfEntries = Stream.ReadLong();
 
             if (NumberOfEntries == -1)
                 return null;
-
-            if (NumberOfEntries == 0)
-                return Array.Empty<T>();
-
+            
             var Entries = new T[NumberOfEntries];
 
             for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
                 Entries[EntryId] = EntryDecoder(Stream);
 
             return Entries;
+        }
+
+        /// <summary>
+        /// Reads an enumerable from the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="EntryDecoder">The entry decoder.</param>
+        public static IEnumerable<T> ReadEnumerable<T>(this Stream Stream, Func<Stream, T> EntryDecoder)
+        {
+            var NumberOfEntries = Stream.ReadInteger();
+
+            if (NumberOfEntries == -1)
+                return null;
+            
+            var Entries = new T[NumberOfEntries];
+
+            for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
+                Entries[EntryId] = EntryDecoder(Stream);
+            
+            return Entries;
+        }
+
+        /// <summary>
+        /// Reads a collection from the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="EntryDecoder">The entry decoder.</param>
+        public static ICollection<TEntry> ReadCollection<TEntry>(this Stream Stream, Func<Stream, TEntry> EntryDecoder)
+        {
+            var NumberOfEntries = Stream.ReadInteger();
+
+            if (NumberOfEntries == -1)
+                return null;
+            
+            var Collection = new List<TEntry>(NumberOfEntries);
+
+            for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
+                Collection.Add(EntryDecoder(Stream));
+
+            return Collection;
+        }
+
+        /// <summary>
+        /// Reads a collection from the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="EntryDecoder">The entry decoder.</param>
+        public static TCollection ReadCollection<TCollection, TEntry>(this Stream Stream, Func<Stream, TEntry> EntryDecoder) where TCollection : ICollection<TEntry>, new()
+        {
+            var NumberOfEntries = Stream.ReadInteger();
+
+            if (NumberOfEntries == -1)
+                return default(TCollection);
+
+            var Collection = new TCollection();
+            
+            for (var EntryId = 0; EntryId < NumberOfEntries; EntryId++)
+                Collection.Add(EntryDecoder(Stream));
+
+            return Collection;
         }
 
         /// <summary>

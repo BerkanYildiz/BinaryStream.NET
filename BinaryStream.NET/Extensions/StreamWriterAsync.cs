@@ -286,9 +286,33 @@
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
         #if NET5_0
-        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, Task> EntryEncoder)
+        public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, ValueTask> EntryEncoder)
         #else
-        public static async Task WriteArrayAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, Task> EntryEncoder)
+        public static async Task WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
+        #endif
+        {
+            if (Value == null)
+            {
+                await Stream.WriteLongAsync(-1);
+                return;
+            }
+
+            await Stream.WriteLongAsync(Value.LongLength);
+
+            foreach (var Entry in Value)
+                await EntryEncoder(Stream, Entry);
+        }
+
+        /// <summary>
+        /// Writes an enumerable to the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="Value">The value to write.</param>
+        /// <param name="EntryEncoder">The entry encoder.</param>
+        #if NET5_0
+        public static async ValueTask WriteEnumerableAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, ValueTask> EntryEncoder)
+        #else
+        public static async Task WriteEnumerableAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, Task> EntryEncoder)
         #endif
         {
             if (Value == null)
@@ -298,6 +322,30 @@
             }
 
             await Stream.WriteIntegerAsync(Value.Count());
+
+            foreach (var Entry in Value)
+                await EntryEncoder(Stream, Entry);
+        }
+
+        /// <summary>
+        /// Writes an enumerable to the stream.
+        /// </summary>
+        /// <param name="Stream">The stream.</param>
+        /// <param name="Value">The value to write.</param>
+        /// <param name="EntryEncoder">The entry encoder.</param>
+        #if NET5_0
+        public static async ValueTask WriteCollectionAsync<T>(this Stream Stream, ICollection<T> Value, Func<Stream, T, ValueTask> EntryEncoder)
+        #else
+        public static async Task WriteCollectionAsync<T>(this Stream Stream, ICollection<T> Value, Func<Stream, T, Task> EntryEncoder)
+        #endif
+        {
+            if (Value == null)
+            {
+                await Stream.WriteIntegerAsync(-1);
+                return;
+            }
+
+            await Stream.WriteIntegerAsync(Value.Count);
 
             foreach (var Entry in Value)
                 await EntryEncoder(Stream, Entry);
