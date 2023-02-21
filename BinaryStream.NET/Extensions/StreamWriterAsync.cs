@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteByteAsync(this Stream Stream, byte Value)
         #else
         public static async Task WriteByteAsync(this Stream Stream, byte Value)
@@ -25,12 +25,13 @@
         {
             await Stream.WriteAsync(new byte[sizeof(byte)] { Value }, 0, sizeof(byte));
         }
+
         /// <summary>
         /// Writes a signed byte value to the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteSignedByteAsync(this Stream Stream, sbyte Value)
         #else
         public static async Task WriteSignedByteAsync(this Stream Stream, sbyte Value)
@@ -44,7 +45,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteBoolAsync(this Stream Stream, bool Value)
         #else
         public static async Task WriteBoolAsync(this Stream Stream, bool Value)
@@ -63,7 +64,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteCharAsync(this Stream Stream, char Value)
         #else
         public static async Task WriteCharAsync(this Stream Stream, char Value)
@@ -82,7 +83,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteShortAsync(this Stream Stream, short Value)
         #else
         public static async Task WriteShortAsync(this Stream Stream, short Value)
@@ -101,7 +102,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteUnsignedShortAsync(this Stream Stream, ushort Value)
         #else
         public static async Task WriteUnsignedShortAsync(this Stream Stream, ushort Value)
@@ -120,7 +121,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteIntegerAsync(this Stream Stream, int Value)
         #else
         public static async Task WriteIntegerAsync(this Stream Stream, int Value)
@@ -139,7 +140,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteUnsignedIntegerAsync(this Stream Stream, uint Value)
         #else
         public static async Task WriteUnsignedIntegerAsync(this Stream Stream, uint Value)
@@ -158,7 +159,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteLongAsync(this Stream Stream, long Value)
         #else
         public static async Task WriteLongAsync(this Stream Stream, long Value)
@@ -177,7 +178,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteUnsignedLongAsync(this Stream Stream, ulong Value)
         #else
         public static async Task WriteUnsignedLongAsync(this Stream Stream, ulong Value)
@@ -196,7 +197,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteDoubleAsync(this Stream Stream, double Value)
         #else
         public static async Task WriteDoubleAsync(this Stream Stream, double Value)
@@ -215,7 +216,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteSingleAsync(this Stream Stream, float Value)
         #else
         public static async Task WriteSingleAsync(this Stream Stream, float Value)
@@ -234,7 +235,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteEnumAsync<T>(this Stream Stream, T Value) where T : Enum
         #else
         public static async Task WriteEnumAsync<T>(this Stream Stream, T Value) where T : Enum
@@ -285,7 +286,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, ValueTask> EntryEncoder)
         #else
         public static async Task WriteArrayAsync<T>(this Stream Stream, T[] Value, Func<Stream, T, Task> EntryEncoder)
@@ -309,7 +310,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteEnumerableAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, ValueTask> EntryEncoder)
         #else
         public static async Task WriteEnumerableAsync<T>(this Stream Stream, IEnumerable<T> Value, Func<Stream, T, Task> EntryEncoder)
@@ -333,7 +334,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="EntryEncoder">The entry encoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteCollectionAsync<T>(this Stream Stream, ICollection<T> Value, Func<Stream, T, ValueTask> EntryEncoder)
         #else
         public static async Task WriteCollectionAsync<T>(this Stream Stream, ICollection<T> Value, Func<Stream, T, Task> EntryEncoder)
@@ -356,7 +357,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteBufferAsync(this Stream Stream, byte[] Value)
         #else
         public static async Task WriteBufferAsync(this Stream Stream, byte[] Value)
@@ -379,7 +380,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteCompressedBufferAsync(this Stream Stream, byte[] Value)
         #else
         public static async Task WriteCompressedBufferAsync(this Stream Stream, byte[] Value)
@@ -394,7 +395,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="Encoding">The string encoding.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
         #else
         public static async Task WriteStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
@@ -412,7 +413,7 @@
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
         /// <param name="Encoding">The string encoding.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteCompressedStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
         #else
         public static async Task WriteCompressedStringAsync(this Stream Stream, string Value, Encoding Encoding = null)
@@ -429,7 +430,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteDateTimeAsync(this Stream Stream, DateTime Value)
         #else
         public static async Task WriteDateTimeAsync(this Stream Stream, DateTime Value)
@@ -446,7 +447,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteDateTimeOffsetAsync(this Stream Stream, DateTimeOffset Value)
         #else
         public static async Task WriteDateTimeOffsetAsync(this Stream Stream, DateTimeOffset Value)
@@ -461,7 +462,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteTimeSpanAsync(this Stream Stream, TimeSpan Value)
         #else
         public static async Task WriteTimeSpanAsync(this Stream Stream, TimeSpan Value)
@@ -475,7 +476,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteGuidAsync(this Stream Stream, Guid Value)
         #else
         public static async Task WriteGuidAsync(this Stream Stream, Guid Value)
@@ -489,7 +490,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteCompressedIntegerAsync(this Stream Stream, int Value)
         #else
         public static async Task WriteCompressedIntegerAsync(this Stream Stream, int Value)
@@ -616,7 +617,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Value">The value to write.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask WriteCompressedUnsignedIntegerAsync(this Stream Stream, uint Value)
         #else
         public static async Task WriteCompressedUnsignedIntegerAsync(this Stream Stream, uint Value)

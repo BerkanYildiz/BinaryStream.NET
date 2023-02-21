@@ -367,7 +367,7 @@
             System.Buffer.BlockCopy(this.Buffer, 0, InBuffer, InOffset, InLength);
         }
 
-        #if NET5_0
+        #if NETCOREAPP2_1
         /// <summary>
         /// Reads the bytes from the current stream and writes them to another stream, using a specified buffer size.
         /// </summary>

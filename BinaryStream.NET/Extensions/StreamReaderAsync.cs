@@ -15,7 +15,7 @@
         /// Reads a byte value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<byte> ReadByteAsync(this Stream Stream)
         #else
         public static async Task<byte> ReadByteAsync(this Stream Stream)
@@ -30,7 +30,7 @@
         /// Reads a signed byte value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<sbyte> ReadSignedByteAsync(this Stream Stream)
         #else
         public static async Task<sbyte> ReadSignedByteAsync(this Stream Stream)
@@ -45,7 +45,7 @@
         /// Reads a boolean value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<bool> ReadBoolAsync(this Stream Stream)
         #else
         public static async Task<bool> ReadBoolAsync(this Stream Stream)
@@ -64,7 +64,7 @@
         /// Reads a char value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<char> ReadCharAsync(this Stream Stream)
         #else
         public static async Task<char> ReadCharAsync(this Stream Stream)
@@ -83,7 +83,7 @@
         /// Reads a short value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<short> ReadShortAsync(this Stream Stream)
         #else
         public static async Task<short> ReadShortAsync(this Stream Stream)
@@ -102,7 +102,7 @@
         /// Reads an unsigned short value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<ushort> ReadUnsignedShortAsync(this Stream Stream)
         #else
         public static async Task<ushort> ReadUnsignedShortAsync(this Stream Stream)
@@ -121,7 +121,7 @@
         /// Reads an integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<int> ReadIntegerAsync(this Stream Stream)
         #else
         public static async Task<int> ReadIntegerAsync(this Stream Stream)
@@ -140,7 +140,7 @@
         /// Reads an unsigned integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<uint> ReadUnsignedIntegerAsync(this Stream Stream)
         #else
         public static async Task<uint> ReadUnsignedIntegerAsync(this Stream Stream)
@@ -159,7 +159,7 @@
         /// Reads a long value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<long> ReadLongAsync(this Stream Stream)
         #else
         public static async Task<long> ReadLongAsync(this Stream Stream)
@@ -178,7 +178,7 @@
         /// Reads an unsigned long value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<ulong> ReadUnsignedLongAsync(this Stream Stream)
         #else
         public static async Task<ulong> ReadUnsignedLongAsync(this Stream Stream)
@@ -197,7 +197,7 @@
         /// Reads a double value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<double> ReadDoubleAsync(this Stream Stream)
         #else
         public static async Task<double> ReadDoubleAsync(this Stream Stream)
@@ -216,7 +216,7 @@
         /// Reads a single value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<float> ReadSingleAsync(this Stream Stream)
         #else
         public static async Task<float> ReadSingleAsync(this Stream Stream)
@@ -235,7 +235,7 @@
         /// Reads an enum value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<T> ReadEnumAsync<T>(this Stream Stream) where T : Enum
         #else
         public static async Task<T> ReadEnumAsync<T>(this Stream Stream) where T : Enum
@@ -277,7 +277,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
         #else
         public static async Task<T[]> ReadArrayAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
@@ -301,7 +301,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<IEnumerable<T>> ReadEnumerableAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
         #else
         public static async Task<IEnumerable<T>> ReadEnumerableAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
@@ -325,7 +325,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<ICollection<T>> ReadCollectionAsync<T>(this Stream Stream, Func<Stream, ValueTask<T>> EntryDecoder)
         #else
         public static async Task<ICollection<T>> ReadCollectionAsync<T>(this Stream Stream, Func<Stream, Task<T>> EntryDecoder)
@@ -349,7 +349,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="EntryDecoder">The entry decoder.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<TCollection> ReadCollectionAsync<TCollection, TEntry>(this Stream Stream, Func<Stream, ValueTask<TEntry>> EntryDecoder) where TCollection : ICollection<TEntry>, new()
         #else
         public static async Task<TCollection> ReadCollectionAsync<TCollection, TEntry>(this Stream Stream, Func<Stream, Task<TEntry>> EntryDecoder) where TCollection : ICollection<TEntry>, new()
@@ -372,7 +372,7 @@
         /// Reads an array from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<byte[]> ReadBufferAsync(this Stream Stream)
         #else
         public static async Task<byte[]> ReadBufferAsync(this Stream Stream)
@@ -395,7 +395,7 @@
         /// Writes a compressed array to the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<byte[]> ReadCompressedBufferAsync(this Stream Stream)
         #else
         public static async Task<byte[]> ReadCompressedBufferAsync(this Stream Stream)
@@ -417,7 +417,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Encoding">The string encoding.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<string> ReadStringAsync(this Stream Stream, Encoding Encoding = null)
         #else
         public static async Task<string> ReadStringAsync(this Stream Stream, Encoding Encoding = null)
@@ -442,7 +442,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <param name="Encoding">The string encoding.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<string> ReadCompressedStringAsync(this Stream Stream, Encoding Encoding = null)
         #else
         public static async Task<string> ReadCompressedStringAsync(this Stream Stream, Encoding Encoding = null)
@@ -467,7 +467,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <returns>A datetime that is expected to be UTC.</returns>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<DateTime> ReadDateTimeAsync(this Stream Stream)
         #else
         public static async Task<DateTime> ReadDateTimeAsync(this Stream Stream)
@@ -483,7 +483,7 @@
         /// </summary>
         /// <param name="Stream">The stream.</param>
         /// <returns>A datetime that is expected to be UTC.</returns>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<DateTimeOffset> ReadDateTimeOffsetAsync(this Stream Stream)
         #else
         public static async Task<DateTimeOffset> ReadDateTimeOffsetAsync(this Stream Stream)
@@ -499,7 +499,7 @@
         /// Reads a <see cref="TimeSpan"/> value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<TimeSpan> ReadTimeSpanAsync(this Stream Stream)
         #else
         public static async Task<TimeSpan> ReadTimeSpanAsync(this Stream Stream)
@@ -513,7 +513,7 @@
         /// Reads a <see cref="Guid"/> value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<Guid> ReadGuidAsync(this Stream Stream)
         #else
         public static async Task<Guid> ReadGuidAsync(this Stream Stream)
@@ -526,7 +526,7 @@
         /// Reads a compressed integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<int> ReadCompressedIntegerAsync(this Stream Stream)
         #else
         public static async Task<int> ReadCompressedIntegerAsync(this Stream Stream)
@@ -600,7 +600,7 @@
         /// Reads a compressed unsigned integer value from the stream.
         /// </summary>
         /// <param name="Stream">The stream.</param>
-        #if NET5_0
+        #if NETCOREAPP2_1
         public static async ValueTask<uint> ReadCompressedUnsignedIntegerAsync(this Stream Stream)
         #else
         public static async Task<uint> ReadCompressedUnsignedIntegerAsync(this Stream Stream)

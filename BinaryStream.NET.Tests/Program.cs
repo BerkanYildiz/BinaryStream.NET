@@ -40,7 +40,7 @@
             Console.WriteLine($"Enumerable [{EnumerableOfNumbers.Count()}] => " + EnumerableOfNumbers.GetType().Name);
             Console.WriteLine($"Collection [{CollectionOfNumbers.Count}] => " + CollectionOfNumbers.GetType().Name);
             Console.WriteLine($"List       [{ListOfNumbers.Count}] => " + ListOfNumbers.GetType().Name);
-
+            
             Console.ReadKey();
         }
     }
